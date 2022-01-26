@@ -1,13 +1,15 @@
+import { TvDetailComponent } from './tv-detail/tv-detail.component';
 import { HomeComponent } from './home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/authlogin']);
 
-const routes: Routes = [
+const routes: Routes = [//a ordem das rotas importam!
   {
     path:'',
     component: HomeComponent,
@@ -15,6 +17,15 @@ const routes: Routes = [
   {
     path:'perfil',
     component: ProfileComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path:'movie/:id',
+    component: MovieDetailComponent,
+  },
+  {
+    path: 'tv/:id',
+    component: TvDetailComponent,
   },
 ];
 
